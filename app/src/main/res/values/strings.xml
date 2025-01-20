@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Task_RecyclerView</string>
+    <string name="Books">Books\n</string>
+    <string name="Reviews">Reviews\n</string>
+    <string name="Favorite">Favorite\n</string>
+    <string name="Search">search\n</string>
+    <string name="profile">Profile\n</string>
+    <string name="Setting">Setting\n</string>
+    <string name="Name">shahd Mohamed</string>
+</resources>

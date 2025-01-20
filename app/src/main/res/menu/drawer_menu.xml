@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Reviews"
+        android:icon="@drawable/review"
+        android:title="@string/Reviews" />
+
+    <item
+        android:id="@+id/Favorite"
+        android:icon="@drawable/favorite"
+        android:title="@string/Favorite" />
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/Search" />
+
+    <!-- خط فاصل تحت search بدون مسافة -->
+    <item
+        android:id="@+id/divider"
+        android:icon="@drawable/divider"
+        android:enabled="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/Profile"
+        android:title="@string/profile"
+        android:icon="@drawable/profile" />
+
+    <item
+        android:id="@+id/Settings"
+        android:icon="@drawable/setting"
+        android:title="@string/Setting" />
+</menu>

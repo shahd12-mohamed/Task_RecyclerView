@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Task_RecyclerView" parent="Theme.MaterialComponents.DayNight.Bridge">
+        parent="Theme.MaterialComponents.Light.NoActionBar.Bridge" >
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+</resources>

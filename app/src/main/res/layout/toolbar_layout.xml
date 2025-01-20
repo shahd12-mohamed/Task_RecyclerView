@@ -1,0 +1,28 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/toolbar_shape"
+            app:title="@string/Books"
+            android:paddingTop="@dimen/padding_20"
+            app:titleTextColor="@color/white"
+            app:titleCentered="true"
+            app:navigationIcon="@drawable/menu"
+            app:menu="@menu/notification_toobar_menu"
+           />
+
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>
