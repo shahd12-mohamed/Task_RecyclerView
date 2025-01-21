@@ -2,7 +2,6 @@
 <resources>
 
     <style name="Theme.Task_RecyclerView" parent="Theme.MaterialComponents.Light.Bridge">
-        parent="Theme.MaterialComponents.Light.NoActionBar.Bridge" >
         <item name="android:textColorSecondary">@color/white</item>
         <item name="colorAccent">@color/orange</item>
     </style>

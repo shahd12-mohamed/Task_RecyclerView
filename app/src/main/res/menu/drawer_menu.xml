@@ -14,14 +14,8 @@
 
     <item
         android:id="@+id/search"
+        android:icon="@drawable/searchh"
         android:title="@string/Search" />
-
-    <!-- خط فاصل تحت search بدون مسافة -->
-    <item
-        android:id="@+id/divider"
-        android:icon="@drawable/divider"
-        android:enabled="false"
-        android:title="" />
 
     <item
         android:id="@+id/Profile"

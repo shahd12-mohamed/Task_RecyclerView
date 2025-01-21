@@ -75,6 +75,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     // Glide core library
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
 
     // Glide compiler (optional, but recommended for view binding optimizations)
 

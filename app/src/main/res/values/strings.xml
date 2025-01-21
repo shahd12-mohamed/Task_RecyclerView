@@ -7,4 +7,8 @@
     <string name="profile">Profile\n</string>
     <string name="Setting">Setting\n</string>
     <string name="Name">shahd Mohamed</string>
+    <string name="book_image">BookImage\n</string>
+    <string name="notification">notification\n</string>
+    <string name="delete_icon">delete</string>
+    <string name="Action">"Book "</string>
 </resources>

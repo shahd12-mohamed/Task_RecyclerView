@@ -1,59 +1,79 @@
 package com.example.task_recyclerview
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
+import android.content.res.ColorStateList
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.RatingBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task_recyclerview.databinding.ItemBookBinding
 
-class BookAdapter (val books: List<Book>) :
-     ListAdapter<Book, RecyclerView.ViewHolder>(BookDiffUtilCallback()) {
+class BookAdapter(private val books: MutableList<Book>) :
+    RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
-     class BookViewHolder(val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
-         companion object {
-             fun from(parent: ViewGroup): BookViewHolder {
-                 val layoutInflater = LayoutInflater.from(parent.context)
-                 val binding = ItemBookBinding.inflate(layoutInflater, parent, false)
-                 return BookViewHolder(binding)
-             }
-         }
-     }
+    class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(book: Book, onDelete: (Int) -> Unit) {
+            binding.tvTitle.text = book.title
+            binding.tvAuthor.text = book.author
+            binding.tvRating.rating = book.rating
 
-     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-         return BookViewHolder.from(parent)
-     }
+            val resourceId = binding.ivImage.context.resources.getIdentifier(
+                book.image, "drawable", binding.ivImage.context.packageName
+            )
 
-     override fun getItemCount(): Int {
-         return books.size
-     }
+            Glide.with(binding.ivImage.context)
+                .load(resourceId)
+                .into(binding.ivImage)
 
-     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-         val book = books[position]
-         if (holder is BookViewHolder) {
+            setRatingBarColor(binding.tvRating, book.rating)
 
-             holder.binding.tvTitle.text = book.title
-             holder.binding.tvAuthor.text = book.author
-             holder.binding.tvRating.rating = book.rating
-             // Load image from drawable
-             val resourceId = holder.binding.ivImage.context.resources.getIdentifier(
-                 book.image, "drawable", holder.binding.ivImage.context.packageName
-             )
+            binding.tvRating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                if (fromUser) {
+                    // Update the rating dynamically
+                    book.rating = rating
+                    // Update the color dynamically based on rating
+                    setRatingBarColor(ratingBar, rating)
+                }
+            }
 
-             Glide.with(holder.binding.ivImage.context)
-                 .load(resourceId) // Load image from drawable resource
-                 .into(holder.binding.ivImage)
-         }
-     }
+            // Set the delete button click listener
+            binding.ivDelete.setOnClickListener {
+                onDelete(adapterPosition)
+            }
+        }
 
-     class BookDiffUtilCallback : DiffUtil.ItemCallback<Book>() {
-         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
-             return oldItem == newItem
-         }
+        private fun setRatingBarColor(ratingBar: RatingBar, rating: Float) {
+            val color = if (rating > 0) {
+                ratingBar.context.getColor(R.color.orange)
+            } else {
+                ratingBar.context.getColor(R.color.grey)
+            }
+            ratingBar.progressTintList = ColorStateList.valueOf(color)
+        }
 
-         override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
-             return oldItem == newItem
-         }
-     }
- }
+        companion object {
+            fun from(parent: ViewGroup): BookViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemBookBinding.inflate(layoutInflater, parent, false)
+                return BookViewHolder(binding)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
+        return BookViewHolder.from(parent)
+    }
+
+    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+        val book = books[position]
+        holder.bind(book) { adapterPosition ->
+            // Remove the book from the list and notify the adapter
+            books.removeAt(adapterPosition)
+            notifyItemRemoved(adapterPosition)
+            notifyItemRangeChanged(adapterPosition, books.size)
+        }
+    }
+
+    override fun getItemCount(): Int = books.size
+}
